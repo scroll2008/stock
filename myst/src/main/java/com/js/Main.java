@@ -13,11 +13,8 @@ public class Main {
 	 * @param args
 	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) throws InterruptedException {
-		List<String> codeList = StockListManager.getCodeList(StockListManager.SECTION_SH_A);
-//		List<String> codeList = new ArrayList<String>();
-
-//		codeList.add("600004");
+	public static void download(String section, MarketTypeEnum market) throws InterruptedException {
+		List<String> codeList = StockListManager.getCodeList(section);
 		
 		List<Thread> threadList = new ArrayList<Thread>();
 		
@@ -25,7 +22,7 @@ public class Main {
 		long startTime = System.currentTimeMillis();
 		
 		for (String code : codeList) {
-			Thread t = new Thread(new StockDataTask(code, MarketTypeEnum.QQ_SH_A));
+			Thread t = new Thread(new StockDataTask(code, market));
 			t.setName(code);
 			t.start();
 			threadList.add(t);
@@ -38,6 +35,11 @@ public class Main {
 		long endTime = System.currentTimeMillis();
 		
 		System.out.println((endTime - startTime)/1000);
+	}
+	
+	public static void main(String[] args) throws InterruptedException {
+//		download(StockListManager.SECTION_SH_A, MarketTypeEnum.QQ_SH_A);
+		download(StockListManager.SECTION_SZ_A, MarketTypeEnum.QQ_SZ_A);
 	}
 
 }

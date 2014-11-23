@@ -132,7 +132,7 @@ public class TestJDBC {
 				isFirst = false;
 				
 				if (item.isKey()) {
-					keyList.add(item.getName());
+					keyList.add(item.name());
 				}
 			}
 		}

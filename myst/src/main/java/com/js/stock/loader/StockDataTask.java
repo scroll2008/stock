@@ -83,13 +83,15 @@ public class StockDataTask implements Runnable{
 	public void run() {
 		
 		String hq;
+		String url = null;
 		try {
-			String url = market.getUrl() + code;
+			 url = market.getUrl() + code;
 			hq = getDoGetURL(url, "UTF-8");
 			Map<Integer,String> info = parseHQ(hq);
 //			StockDataManager.addStockData(info);
 			TestJDBC.insertTable(info, QQStock.class);
 		} catch (Exception e) {
+			System.out.println(url);
 			e.printStackTrace();
 		}
 		

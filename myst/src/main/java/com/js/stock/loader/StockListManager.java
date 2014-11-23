@@ -79,8 +79,14 @@ public class StockListManager {
 			String[] v = str.split("-");
 			int start = Integer.parseInt(v[0]);
 			int end = Integer.parseInt(v[1]);
-			for (int i = start; i < end; i++) {
-				codeList.add(i + "");
+			for (int i = start; i <= end; i++) {
+				String code = i + "";
+				int appendSize = 6-code.length();
+				for (int j=0;j<appendSize;j++) {
+					code = "0" + code;
+				}
+				
+				codeList.add(code);
 			}
 		}
 
