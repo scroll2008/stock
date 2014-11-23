@@ -9,7 +9,7 @@ import java.util.List;
 
 public class StockListManager {
 	
-	private static String FILE_NAME = "D:/同花顺/realtime/market.txt";
+	private static String FILE_NAME = "C:/同花顺软件/同花顺/realtime/market.txt";
 	private static String SECTION = "Market_16_17";
 	private static String KEY = "CodeList";
 	

@@ -188,7 +188,7 @@ public class TestJDBC {
 	}
 	
 	public static void main(String[] args) {
-//		createTable(QQStock.class);
+		createTable(QQStock.class);
 		Map<Integer, String> data = new HashMap<Integer, String>();
 		data.put(QQStock.STOCK_DATE.ordinal(), "2014-10-22");
 		data.put(QQStock.CODE.ordinal(), "11");

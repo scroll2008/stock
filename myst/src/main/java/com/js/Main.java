@@ -20,7 +20,7 @@ public class Main {
 		List<String> codeList = StockListManager.getCodeList();
 //		List<String> codeList = new ArrayList<String>();
 
-		codeList.add("600004");
+//		codeList.add("600004");
 		
 		List<Thread> threadList = new ArrayList<Thread>();
 		
