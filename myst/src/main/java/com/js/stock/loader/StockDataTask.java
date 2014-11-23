@@ -5,14 +5,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import js.test.StockDataManager;
-import js.test.TecentStockInfo;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 
 import com.js.db.TestJDBC;
+import com.js.stock.qq.MarketTypeEnum;
 import com.js.stock.qq.QQStock;
 
 /**
@@ -20,11 +18,17 @@ import com.js.stock.qq.QQStock;
  * 
  */
 public class StockDataTask implements Runnable{
+	
+
+	public static String QQ_SH = "http://qt.gtimg.cn/q=sh";
+	public static String QQ_SZ = "http://qt.gtimg.cn/q=sz";
 
 	private String code = null;
+	private MarketTypeEnum market = null;
 	
-	public StockDataTask(String code) {
+	public StockDataTask(String code, MarketTypeEnum market) {
 		this.code = code;
+		this.market = market;
 	}
 
 	private String getDoGetURL(String url, String charset)
@@ -67,29 +71,20 @@ public class StockDataTask implements Runnable{
 		Map<Integer,String> info = new HashMap<Integer,String>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String dateStr = sdf.format(new Date());
+		
 		info.put(0, dateStr);
+		info.put(1, market.getValue());
 		for (int i=0;i<v2.length; i++) {
-			info.put(i+1, v2[i]);
+			info.put(i+2, v2[i]);
 		}
 		return info;
 	}
-
-//	@SuppressWarnings("unused")
-//	private void printInfo(Map<Integer,String> info) {
-//		
-//		StringBuffer strBuf = new StringBuffer();
-//		for(int i=0;i<TecentStockInfo.HEAD_NAMES.length; i++) {
-//			strBuf.append(TecentStockInfo.HEAD_NAMES[i]).append("=").append(info.get(TecentStockInfo.HEAD_NAMES[i])).append("\n");
-//		}
-//		strBuf.append("\n");
-//		System.out.println(strBuf.toString());
-//	}
 	
 	public void run() {
 		
 		String hq;
 		try {
-			String url = TecentStockInfo.URL_BASE + code;
+			String url = market.getUrl() + code;
 			hq = getDoGetURL(url, "UTF-8");
 			Map<Integer,String> info = parseHQ(hq);
 //			StockDataManager.addStockData(info);

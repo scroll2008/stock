@@ -3,6 +3,7 @@ package com.js.stock.qq;
 public enum QQStock {
 	
 	STOCK_DATE("日期", TypeEnum.DATE, true),
+	MARKET_TYPE("市场", TypeEnum.STRING),
 	A("未知", TypeEnum.STRING),      //0
 	NAME("名字", TypeEnum.STRING),      //1
 	CODE("代码", TypeEnum.STRING, true),      //2
@@ -47,7 +48,7 @@ public enum QQStock {
 	HIGHEST_2("最高"),      //41
 	LOWEST_2("最低"),      //42
 	AMPLITUDE("振幅"),      //43
-	CIRCULATED_MACKET_VALUE("流通市值"),      //44
+	CIRCULATED_MARKET_VALUE("流通市值"),      //44
 	TOTAL_MACKET_VALUE("总市值"),      //45
 	PB("市净率"),      //46
 	HIGH_LIMIT("涨停价"),      //47

@@ -8,16 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StockListManager {
+	final public static String SECTION_SH_A = "Market_16_17";
+	final public static String SECTION_SZ_A = "Market_32_33";
 	
 	private static String FILE_NAME = "C:/同花顺软件/同花顺/realtime/market.txt";
-	private static String SECTION = "Market_16_17";
 	private static String KEY = "CodeList";
-	
-	public static List<String> getCodeList() {
-		
-		String codeStr = getCodeStr(FILE_NAME, SECTION, KEY);
-		return getCodeList(codeStr);
-	}
 	
 	private static String getCodeStr(String filePath, String section, String key) {
 
@@ -68,8 +63,10 @@ public class StockListManager {
 		}
 	}
 
-	private static List<String> getCodeList(String codeStr) {
+	public static List<String> getCodeList(String section) {
 
+		String codeStr = getCodeStr(FILE_NAME, section, KEY);
+		
 		List<String> codeList = new ArrayList<String>();
 
 		String[] vec = codeStr.split(",");

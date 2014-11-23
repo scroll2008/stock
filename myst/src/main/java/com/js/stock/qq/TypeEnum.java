@@ -1,10 +1,7 @@
 package com.js.stock.qq;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import antlr.StringUtils;
 
 public enum TypeEnum {
 	

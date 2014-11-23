@@ -1,7 +1,6 @@
 package com.js.db;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ public class TestJDBC {
 		} 
 	}
 	
-	private static boolean isExist(Map<Integer, String> data, Class claz) {
+	private static <T> boolean isExist(Map<Integer, String> data, Class<T> claz) {
 		
 		String sql = "select count(*) recNum from " + claz.getSimpleName() + " where ";
 		
@@ -76,7 +75,7 @@ public class TestJDBC {
 		return true;
 	}
 	
-	public static void insertTable(Map<Integer, String> data, Class claz) {
+	public static <T> void insertTable(Map<Integer, String> data, Class<T> claz) {
 		
 		if (isExist(data, claz)) {
 			return;
@@ -119,11 +118,11 @@ public class TestJDBC {
 		}
 	}
 	
-	public static void createTable(Class claz) {
+	public static <T> void createTable(Class<T> claz) {
 		boolean isFirst = true;
+		List<String> keyList = new ArrayList<String>();
 		String sql = "create table " + claz.getSimpleName() +"(";
 		
-		List<String> keyList = new ArrayList<String>();
 		if (QQStock.class.getName().equals(claz.getName())) {
 			for (QQStock item: QQStock.values()) {
 				if (!isFirst) {
@@ -131,11 +130,15 @@ public class TestJDBC {
 				}
 				sql += item.getType().getDefineString(item.name());
 				isFirst = false;
+				
+				if (item.isKey()) {
+					keyList.add(item.getName());
+				}
 			}
 		}
 		
 		if (!keyList.isEmpty()) {
-			sql += " primary key(";
+			sql += ", primary key(";
 			boolean isFirstKey = true;
 			for (String key : keyList) {
 				if (!isFirstKey) {
@@ -166,6 +169,7 @@ public class TestJDBC {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private static ResultSet search(Map<Integer, String> data, String sql) {
 		ResultSet rs = null;
 		Statement stmt = null;
@@ -189,11 +193,11 @@ public class TestJDBC {
 	
 	public static void main(String[] args) {
 		createTable(QQStock.class);
-		Map<Integer, String> data = new HashMap<Integer, String>();
-		data.put(QQStock.STOCK_DATE.ordinal(), "2014-10-22");
-		data.put(QQStock.CODE.ordinal(), "11");
-		
-		insertTable(data, QQStock.class);
+//		Map<Integer, String> data = new HashMap<Integer, String>();
+//		data.put(QQStock.STOCK_DATE.ordinal(), "2014-10-22");
+//		data.put(QQStock.CODE.ordinal(), "11");
+//		
+//		insertTable(data, QQStock.class);
 	}
 
 }
